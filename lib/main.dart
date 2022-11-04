@@ -250,10 +250,12 @@ class MySliderApp extends StatefulWidget {
 }
 
 class _MySliderAppState extends State<MySliderApp> {
-  static const String FLASK_MODEL_URL = "https://motorcycle-model.herokuapp.com/";
+  static const String FLASK_MODEL_URL =
+      "https://motorcycle-model.herokuapp.com/";
   static const String FLASK_MODEL_URL_TEST = "http://127.0.0.1:5000";
 
   String prediction = "";
+  Map featureValues = {};
 
   //var inputBoundary;
   //List<int> inputValues = [];
@@ -291,365 +293,390 @@ class _MySliderAppState extends State<MySliderApp> {
           backgroundColor: Colors.transparent,
           appBar: AppBar(
             title: Text('Flutter Slider page'),
+
           ),
           body: SingleChildScrollView(
               child: Center(
-                //padding: EdgeInsets.all(0.0),
-                child: Row(children: [
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: <Widget>[
-                        Container(
-                          margin: const EdgeInsets.all(25),
-                          height: 800,
-                          width: 600,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
-                            color: Colors.white,
-                          ),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text("TEXT ABOUT THE PARAMETER AND WHAT WILL HAPPEN"),
-                              Column(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                    //row 1-------------------
-                                    children: [
-                                      Text("Seat height: \t"),
-                                      Slider(
-                                        //-----------------------------slider 1
-                                        value: _valueSlider1_seatHeight.toDouble(),
-                                        min: 87.0,
-                                        max: 919.0,
-                                        //divisions: 10,
-                                        activeColor: Colors.lightBlueAccent,
-                                        inactiveColor: Colors.orange,
-                                        label: 'Set volume value',
-                                        onChanged: (double newValue) {
-                                          setState(() {
-                                            _valueSlider1_seatHeight = newValue.round();
-                                          });
-                                        },
-                                      ),
-                                      Text("$_valueSlider1_seatHeight mm"),
-                                      IconButton(
-                                        //icon slider 1 -------------------------------------
-                                        icon: ImageIcon(
-                                            AssetImage('assets/help-icon.png')),
-                                        tooltip: 'explain feature',
-                                        onPressed: () {
-                                          //getResponse();
-                                          showDialog(
-                                            context: context,
-                                            builder: (context) => SimpleDialog(
-                                              children: [
-                                                Column(
-                                                  mainAxisAlignment:
-                                                  MainAxisAlignment.spaceEvenly,
-                                                  crossAxisAlignment:
-                                                  CrossAxisAlignment.center,
-                                                  children: [
-                                                    Text(
-                                                      "This feature is about the height of the seat of a motorcycle, this is the space in milimeter from the groud to the seat.",
-                                                      textAlign: TextAlign.center,
-                                                    ),
-                                                  ],
-                                                ),
-                                              ],
-                                            ),
-                                          );
-                                        },
-                                      ),
-                                    ],
-                                  ),
-                                  Row(
-                                    //row 2-------------------
-                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                    children: [
-                                      Text("Dry weight: \t"),
-                                      Slider(
-                                        //-----------------------------slider 2
-                                        value: _valueSlider2_dryWeight.toDouble(),
-                                        min: 58.0,
-                                        max: 562.0,
-                                        //divisions: 10,
-                                        activeColor: Colors.lightBlueAccent,
-                                        inactiveColor: Colors.orange,
-                                        label: 'Set volume value',
-                                        onChanged: (double newValue) {
-                                          setState(() {
-                                            _valueSlider2_dryWeight = newValue.round();
-                                          });
-                                        },
-                                      ),
-                                      Text("$_valueSlider2_dryWeight kg"),
-                                      IconButton(
-                                        //icon slider 2 -------------------------------------
-                                        icon: ImageIcon(
-                                            AssetImage('assets/help-icon.png')),
-                                        tooltip: 'explain feature',
-                                        onPressed: () {
-                                          //getResponse();
-                                          showDialog(
-                                            context: context,
-                                            builder: (context) => SimpleDialog(
-                                              children: [
-                                                Column(
-                                                  mainAxisAlignment:
-                                                  MainAxisAlignment.spaceEvenly,
-                                                  crossAxisAlignment:
-                                                  CrossAxisAlignment.center,
-                                                  children: [
-                                                    Text(
-                                                      "This feature is all about the weight of a motorcycle. The dry weight means the weight of the bike without any fluids like oil and gas.",
-                                                      textAlign: TextAlign.center,
-                                                    ),
-                                                  ],
-                                                ),
-                                              ],
-                                            ),
-                                          );
-                                        },
-                                      ),
-                                    ],
-                                  ),
-                                  Row(
-                                    //row 3-------------------
-                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                    children: [
-                                      Text("Wheelbase: \t"),
-                                      Slider(
-                                        //-----------------------------slider 3
-                                        value: _valueSlider3_wheelbase.toDouble(),
-                                        min: 895.0,
-                                        max: 2261.0,
-                                        //divisions: 10,
-                                        activeColor: Colors.lightBlueAccent,
-                                        inactiveColor: Colors.orange,
-                                        label: 'Set volume value',
-                                        onChanged: (double newValue) {
-                                          setState(() {
-                                            _valueSlider3_wheelbase = newValue.round();
-                                          });
-                                        },
-                                      ),
-                                      Text("$_valueSlider3_wheelbase mm"),
-                                      IconButton(
-                                        //icon slider 3 -------------------------------------
-                                        icon: ImageIcon(
-                                            AssetImage('assets/help-icon.png')),
-                                        tooltip: 'explain feature',
-                                        onPressed: () {
-                                          //getResponse();
-                                          showDialog(
-                                            context: context,
-                                            builder: (context) => SimpleDialog(
-                                              children: [
-                                                Column(
-                                                  mainAxisAlignment:
-                                                  MainAxisAlignment.spaceEvenly,
-                                                  crossAxisAlignment:
-                                                  CrossAxisAlignment.center,
-                                                  children: [
-                                                    Text(
-                                                      "ABOUT THE WHEELBASE",
-                                                      textAlign: TextAlign.center,
-                                                    ),
-                                                  ],
-                                                ),
-                                              ],
-                                            ),
-                                          );
-                                        },
-                                      ),
-                                    ],
-                                  ),
-                                  Row(
-                                    //row 4-------------------
-                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                    children: [
-                                      Text("Horsepower: \t"),
-                                      Slider(
-                                        //-----------------------------slider 4
-                                        value: _valueSlider4_power.toDouble(),
-                                        min: 1.0,
-                                        max: 417.0,
-                                        //divisions: 10,
-                                        activeColor: Colors.lightBlueAccent,
-                                        inactiveColor: Colors.orange,
-                                        label: 'Set volume value',
-                                        onChanged: (double newValue) {
-                                          setState(() {
-                                            _valueSlider4_power = newValue.round();
-                                          });
-                                        },
-                                      ),
-                                      Text("$_valueSlider4_power hp"),
-                                      IconButton(
-                                        //icon slider 4 -------------------------------------
-                                        icon: ImageIcon(
-                                            AssetImage('assets/help-icon.png')),
-                                        tooltip: 'explain feature',
-                                        onPressed: () {
-                                          //getResponse();
-                                          showDialog(
-                                            context: context,
-                                            builder: (context) => SimpleDialog(
-                                              children: [
-                                                Column(
-                                                  mainAxisAlignment:
-                                                  MainAxisAlignment.spaceEvenly,
-                                                  crossAxisAlignment:
-                                                  CrossAxisAlignment.center,
-                                                  children: [
-                                                    Text(
-                                                      "About the power of the bike",
-                                                      textAlign: TextAlign.center,
-                                                    ),
-                                                  ],
-                                                ),
-                                              ],
-                                            ),
-                                          );
-                                        },
-                                      ),
-                                    ],
-                                  ),
-                                  Row(
-                                    //row 5-------------------
-                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                    children: [
-                                      Text("Displacement: \t"),
-                                      Slider(
-                                        //-----------------------------slider 5
-                                        value: _valueSlider5_displacement.toDouble(),
-                                        min: 49.0,
-                                        max: 2575.0,
-                                        //divisions: 10,
-                                        activeColor: Colors.lightBlueAccent,
-                                        inactiveColor: Colors.orange,
-                                        label: 'Set volume value',
-                                        onChanged: (double newValue) {
-                                          setState(() {
-                                            _valueSlider5_displacement =
-                                                newValue.round();
-                                          });
-                                        },
-                                      ),
-                                      Text("$_valueSlider5_displacement ccm"),
-                                      IconButton(
-                                        //icon slider 5 -------------------------------------
-                                        icon: ImageIcon(
-                                            AssetImage('assets/help-icon.png')),
-                                        tooltip: 'explain feature',
-                                        onPressed: () {
-                                          //getResponse();
-                                          showDialog(
-                                            context: context,
-                                            builder: (context) => SimpleDialog(
-                                              children: [
-                                                Column(
-                                                  mainAxisAlignment:
-                                                  MainAxisAlignment.spaceEvenly,
-                                                  crossAxisAlignment:
-                                                  CrossAxisAlignment.center,
-                                                  children: [
-                                                    Text(
-                                                      "About the displacement of the bike",
-                                                      textAlign: TextAlign.center,
-                                                    ),
-                                                  ],
-                                                ),
-                                              ],
-                                            ),
-                                          );
-                                        },
-                                      ),
-                                    ],
-                                  ),
-                                  Row(
-                                    //row 6-------------------
-                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                    children: [
-                                      Text("Torgue: \t"),
-                                      Slider(
-                                        //-----------------------------slider 6
-                                        value: _valueSlider6_torque.toDouble(),
-                                        min: 2.0,
-                                        max: 319.0,
-                                        //divisions: 10,
-                                        activeColor: Colors.lightBlueAccent,
-                                        inactiveColor: Colors.orange,
-                                        label: 'Set volume value',
-                                        onChanged: (double newValue) {
-                                          setState(() {
-                                            _valueSlider6_torque = newValue.round();
-                                          });
-                                        },
-                                      ),
-                                      Text("$_valueSlider6_torque Nm"),
-                                      IconButton(
-                                        //icon slider 6 -------------------------------------
-                                        icon: ImageIcon(
-                                            AssetImage('assets/help-icon.png')),
-                                        tooltip: 'explain feature',
-                                        onPressed: () {
-                                          //getResponse();
-                                          showDialog(
-                                            context: context,
-                                            builder: (context) => SimpleDialog(
-                                              children: [
-                                                Column(
-                                                  mainAxisAlignment:
-                                                  MainAxisAlignment.spaceEvenly,
-                                                  crossAxisAlignment:
-                                                  CrossAxisAlignment.center,
-                                                  children: [
-                                                    Text(
-                                                      "About the torque of the bike",
-                                                      textAlign: TextAlign.center,
-                                                    ),
-                                                  ],
-                                                ),
-                                              ],
-                                            ),
-                                          );
-                                        },
-                                      ),
-                                    ],
-                                  ),
-                                  Row( //Row for submit button
-                                    mainAxisAlignment: MainAxisAlignment.end,
-                                    children: [
-                                      ElevatedButton(
-                                        onPressed: () async {
-                                          await getPrediction();
-                                          print(prediction);
-                                          Navigator.push(
-                                              context, MaterialPageRoute(builder: (context) => MyPredictionPage(prediction: prediction)));
-                                        },
-                                        child: const Text("Predict!"),
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
+            //padding: EdgeInsets.all(0.0),
+            child: Row(
+              children: [
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      Container(
+                        margin: const EdgeInsets.all(25),
+                        height: 800,
+                        width: 600,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          color: Colors.white,
                         ),
-                      ],
-                    ),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                                "TEXT ABOUT THE PARAMETER AND WHAT WILL HAPPEN"),
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  //row 1-------------------
+                                  children: [
+                                    Text("Seat height: \t"),
+                                    Slider(
+                                      //-----------------------------slider 1
+                                      value:
+                                          _valueSlider1_seatHeight.toDouble(),
+                                      min: 87.0,
+                                      max: 919.0,
+                                      //divisions: 10,
+                                      activeColor: Colors.lightBlueAccent,
+                                      inactiveColor: Colors.orange,
+                                      label: 'Set volume value',
+                                      onChanged: (double newValue) {
+                                        setState(() {
+                                          _valueSlider1_seatHeight =
+                                              newValue.round();
+                                        });
+                                      },
+                                    ),
+                                    Text("$_valueSlider1_seatHeight mm"),
+                                    IconButton(
+                                      //icon slider 1 -------------------------------------
+                                      icon: ImageIcon(
+                                          AssetImage('assets/help-icon.png')),
+                                      tooltip: 'explain feature',
+                                      onPressed: () {
+                                        //getResponse();
+                                        showDialog(
+                                          context: context,
+                                          builder: (context) => SimpleDialog(
+                                            children: [
+                                              Column(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceEvenly,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.center,
+                                                children: [
+                                                  Text(
+                                                    "This feature is about the height of the seat of a motorcycle, this is the space in milimeter from the groud to the seat.",
+                                                    textAlign: TextAlign.center,
+                                                  ),
+                                                ],
+                                              ),
+                                            ],
+                                          ),
+                                        );
+                                      },
+                                    ),
+                                  ],
+                                ),
+                                Row(
+                                  //row 2-------------------
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    Text("Dry weight: \t"),
+                                    Slider(
+                                      //-----------------------------slider 2
+                                      value: _valueSlider2_dryWeight.toDouble(),
+                                      min: 58.0,
+                                      max: 562.0,
+                                      //divisions: 10,
+                                      activeColor: Colors.lightBlueAccent,
+                                      inactiveColor: Colors.orange,
+                                      label: 'Set volume value',
+                                      onChanged: (double newValue) {
+                                        setState(() {
+                                          _valueSlider2_dryWeight =
+                                              newValue.round();
+                                        });
+                                      },
+                                    ),
+                                    Text("$_valueSlider2_dryWeight kg"),
+                                    IconButton(
+                                      //icon slider 2 -------------------------------------
+                                      icon: ImageIcon(
+                                          AssetImage('assets/help-icon.png')),
+                                      tooltip: 'explain feature',
+                                      onPressed: () {
+                                        //getResponse();
+                                        showDialog(
+                                          context: context,
+                                          builder: (context) => SimpleDialog(
+                                            children: [
+                                              Column(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceEvenly,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.center,
+                                                children: [
+                                                  Text(
+                                                    "This feature is all about the weight of a motorcycle. The dry weight means the weight of the bike without any fluids like oil and gas.",
+                                                    textAlign: TextAlign.center,
+                                                  ),
+                                                ],
+                                              ),
+                                            ],
+                                          ),
+                                        );
+                                      },
+                                    ),
+                                  ],
+                                ),
+                                Row(
+                                  //row 3-------------------
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    Text("Wheelbase: \t"),
+                                    Slider(
+                                      //-----------------------------slider 3
+                                      value: _valueSlider3_wheelbase.toDouble(),
+                                      min: 895.0,
+                                      max: 2261.0,
+                                      //divisions: 10,
+                                      activeColor: Colors.lightBlueAccent,
+                                      inactiveColor: Colors.orange,
+                                      label: 'Set volume value',
+                                      onChanged: (double newValue) {
+                                        setState(() {
+                                          _valueSlider3_wheelbase =
+                                              newValue.round();
+                                        });
+                                      },
+                                    ),
+                                    Text("$_valueSlider3_wheelbase mm"),
+                                    IconButton(
+                                      //icon slider 3 -------------------------------------
+                                      icon: ImageIcon(
+                                          AssetImage('assets/help-icon.png')),
+                                      tooltip: 'explain feature',
+                                      onPressed: () {
+                                        //getResponse();
+                                        showDialog(
+                                          context: context,
+                                          builder: (context) => SimpleDialog(
+                                            children: [
+                                              Column(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceEvenly,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.center,
+                                                children: [
+                                                  Text(
+                                                    "ABOUT THE WHEELBASE",
+                                                    textAlign: TextAlign.center,
+                                                  ),
+                                                ],
+                                              ),
+                                            ],
+                                          ),
+                                        );
+                                      },
+                                    ),
+                                  ],
+                                ),
+                                Row(
+                                  //row 4-------------------
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    Text("Horsepower: \t"),
+                                    Slider(
+                                      //-----------------------------slider 4
+                                      value: _valueSlider4_power.toDouble(),
+                                      min: 1.0,
+                                      max: 417.0,
+                                      //divisions: 10,
+                                      activeColor: Colors.lightBlueAccent,
+                                      inactiveColor: Colors.orange,
+                                      label: 'Set volume value',
+                                      onChanged: (double newValue) {
+                                        setState(() {
+                                          _valueSlider4_power =
+                                              newValue.round();
+                                        });
+                                      },
+                                    ),
+                                    Text("$_valueSlider4_power hp"),
+                                    IconButton(
+                                      //icon slider 4 -------------------------------------
+                                      icon: ImageIcon(
+                                          AssetImage('assets/help-icon.png')),
+                                      tooltip: 'explain feature',
+                                      onPressed: () {
+                                        //getResponse();
+                                        showDialog(
+                                          context: context,
+                                          builder: (context) => SimpleDialog(
+                                            children: [
+                                              Column(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceEvenly,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.center,
+                                                children: [
+                                                  Text(
+                                                    "About the power of the bike",
+                                                    textAlign: TextAlign.center,
+                                                  ),
+                                                ],
+                                              ),
+                                            ],
+                                          ),
+                                        );
+                                      },
+                                    ),
+                                  ],
+                                ),
+                                Row(
+                                  //row 5-------------------
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    Text("Displacement: \t"),
+                                    Slider(
+                                      //-----------------------------slider 5
+                                      value:
+                                          _valueSlider5_displacement.toDouble(),
+                                      min: 49.0,
+                                      max: 2575.0,
+                                      //divisions: 10,
+                                      activeColor: Colors.lightBlueAccent,
+                                      inactiveColor: Colors.orange,
+                                      label: 'Set volume value',
+                                      onChanged: (double newValue) {
+                                        setState(() {
+                                          _valueSlider5_displacement =
+                                              newValue.round();
+                                        });
+                                      },
+                                    ),
+                                    Text("$_valueSlider5_displacement ccm"),
+                                    IconButton(
+                                      //icon slider 5 -------------------------------------
+                                      icon: ImageIcon(
+                                          AssetImage('assets/help-icon.png')),
+                                      tooltip: 'explain feature',
+                                      onPressed: () {
+                                        //getResponse();
+                                        showDialog(
+                                          context: context,
+                                          builder: (context) => SimpleDialog(
+                                            children: [
+                                              Column(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceEvenly,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.center,
+                                                children: [
+                                                  Text(
+                                                    "About the displacement of the bike",
+                                                    textAlign: TextAlign.center,
+                                                  ),
+                                                ],
+                                              ),
+                                            ],
+                                          ),
+                                        );
+                                      },
+                                    ),
+                                  ],
+                                ),
+                                Row(
+                                  //row 6-------------------
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    Text("Torgue: \t"),
+                                    Slider(
+                                      //-----------------------------slider 6
+                                      value: _valueSlider6_torque.toDouble(),
+                                      min: 2.0,
+                                      max: 319.0,
+                                      //divisions: 10,
+                                      activeColor: Colors.lightBlueAccent,
+                                      inactiveColor: Colors.orange,
+                                      label: 'Set volume value',
+                                      onChanged: (double newValue) {
+                                        setState(() {
+                                          _valueSlider6_torque =
+                                              newValue.round();
+                                        });
+                                      },
+                                    ),
+                                    Text("$_valueSlider6_torque Nm"),
+                                    IconButton(
+                                      //icon slider 6 -------------------------------------
+                                      icon: ImageIcon(
+                                          AssetImage('assets/help-icon.png')),
+                                      tooltip: 'explain feature',
+                                      onPressed: () {
+                                        //getResponse();
+                                        showDialog(
+                                          context: context,
+                                          builder: (context) => SimpleDialog(
+                                            children: [
+                                              Column(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceEvenly,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.center,
+                                                children: [
+                                                  Text(
+                                                    "About the torque of the bike",
+                                                    textAlign: TextAlign.center,
+                                                  ),
+                                                ],
+                                              ),
+                                            ],
+                                          ),
+                                        );
+                                      },
+                                    ),
+                                  ],
+                                ),
+                                Row(
+                                  //Row for submit button
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: [
+                                    ElevatedButton(
+                                      onPressed: () async {
+                                        await getPrediction();
+                                        print(prediction);
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    MyPredictionPage( prediction: prediction, predFeatureValues: featureValues,)));
+                                      },
+                                      child: const Text("Predict!"),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
                   ),
-                ],
                 ),
-              )
-          ),
+              ],
+            ),
+          )),
         ),
       ),
     );
@@ -717,9 +744,32 @@ class _MySliderAppState extends State<MySliderApp> {
     };
 
     //String predicted = "";
-    var response = await client.post(Uri.parse(FLASK_MODEL_URL_TEST), body: json.encode(request));
+    var response = await client.post(Uri.parse(FLASK_MODEL_URL_TEST),
+        body: json.encode(request));
     var decoded = json.decode(response.body);
-    setPredValue(decoded['outcome']);
+    Map featureVal = {
+      'displacement' : decoded['feature_values_prediction']['displacement'],
+      'dry_weight' : decoded['feature_values_prediction']['dry_weight'],
+      'power' : decoded['feature_values_prediction']['power'],
+      'seat_height' : decoded['feature_values_prediction']['seat_height'],
+      'torque' : decoded['feature_values_prediction']['torque'],
+      'wheelbase' : decoded['feature_values_prediction']['wheelbase']
+    };
+    // featureValues['displacement'] = decoded['feature_values_prediction']['displacement'];
+    // featureValues['dry_weight'] = decoded['feature_values_prediction']['dry_weight'];
+    // featureValues['power'] = decoded['feature_values_prediction']['power'];
+    // featureValues['seat_height'] = decoded['feature_values_prediction']['seat_height'];
+    // featureValues['torque'] = decoded['feature_values_prediction']['torque'];
+    // featureValues['wheelbase'] = decoded['feature_values_prediction']['wheelbase'];
+    //print(featureVal);
+    //print("----------------------------");
+    var sortedByValueMap = Map.fromEntries(
+        featureVal.entries.toList()..sort((e1, e2) => e2.value.compareTo(e1.value)));
+
+    //print(sortedByValueMap);
+
+    setPredValue(decoded['outcome'], sortedByValueMap);
+    //print(decoded);
 
     //try {
     //  client.post(Uri.parse(FLASK_MODEL_URL_TEST), body: json.encode(request)).then((response) {
@@ -734,10 +784,11 @@ class _MySliderAppState extends State<MySliderApp> {
     //}
   }
 
-  void setPredValue(String pred){
+  void setPredValue(String pred, Map featureV) {
     print("prediction value in method: ");
     print(pred);
     prediction = pred;
+    featureValues = featureV;
   }
 
   http.Client getClient() {
@@ -745,10 +796,11 @@ class _MySliderAppState extends State<MySliderApp> {
   }
 }
 
-
 class MyPredictionPage extends StatefulWidget {
-  const MyPredictionPage({super.key, required this.prediction});
+  const MyPredictionPage({super.key, required this.prediction, required this.predFeatureValues});
+
   final String prediction;
+  final Map predFeatureValues;
 
   // This widget is the home page of your application. It is stateful, meaning
   // that it has a State object (defined below) that contains fields that affect
@@ -764,8 +816,6 @@ class MyPredictionPage extends StatefulWidget {
 }
 
 class _MyPredictionPage extends State<MyPredictionPage> {
-
-
   void _goNextPage() {
     Navigator.push(
         context, MaterialPageRoute(builder: (context) => const MySliderApp()));
@@ -799,39 +849,98 @@ class _MyPredictionPage extends State<MyPredictionPage> {
             title: Text('Prediction Motorcycle Type'),
           ),
           body: SingleChildScrollView(
-              child: Center(
-                //padding: EdgeInsets.all(0.0),
-                child: Row(children: [
+            child: Center(
+              //padding: EdgeInsets.all(0.0),
+              child: Row(
+                children: [
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: <Widget>[
                         Container(
-                          margin: const EdgeInsets.all(25),
-                          height: 800,
-                          width: 600,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
-                            color: Colors.white,
-                          ),
-                          child: Text("TEST: predicted: ${widget.prediction}"),
-                        ),
+                            margin: const EdgeInsets.all(25),
+                            height: 800,
+                            width: 1000,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                              color: Colors.white,
+                            ),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Padding(
+                                  padding: EdgeInsets.all(10.0),
+                                ),
+                                Text("Predicted motorcycle type:", textScaleFactor: 2.0,),
+                                Padding(
+                                  padding: EdgeInsets.all(0.0),
+                                ),
+                                Text("${widget.prediction}", textScaleFactor: 2.5, style: TextStyle(fontWeight: FontWeight.bold)),
+                                Padding(
+                                  padding: EdgeInsets.all(30.0),
+                                ),
+                                Text("Explanation on the prediction", textScaleFactor: 1.0, style: TextStyle(fontWeight: FontWeight.bold)),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    Column(
+                                        children: [
+                                          Text("TEXT AS EXPLINATION OF THE MODEL AND ITS FEATURES", textScaleFactor: 1.0, style: TextStyle(fontWeight: FontWeight.bold)),
+                                        ],
+                                      ),
+
+                                    Container(
+                                      color: Colors.lightBlueAccent,
+                                      child: Column(
+                                        mainAxisAlignment: MainAxisAlignment.start,
+                                        children: [
+                                          Text("Features which increased or lowered this prediction:", textScaleFactor: 1.2, style: TextStyle(fontWeight: FontWeight.bold)),
+                                          getTextWidgetForFeature(0),
+                                          getTextWidgetForFeature(1),
+                                          getTextWidgetForFeature(2),
+                                          getTextWidgetForFeature(3),
+                                          getTextWidgetForFeature(4),
+                                          getTextWidgetForFeature(5),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            )),
                       ],
                     ),
                   ),
                 ],
-                ),
               ),
+            ),
           ),
           floatingActionButton: FloatingActionButton(
             //onPressed: _incrementCounter,
             onPressed: _goNextPage,
-            tooltip: 'Increment',
-            child: const Icon(Icons.add),
+            tooltip: 'Home',
+            child: const Icon(Icons.home),
           ),
         ),
       ),
     );
   }
+
+  Text getTextWidgetForFeature(int numbOfFeature){
+    String txt = "$numbOfFeature";
+    String keyOfFeature = widget.predFeatureValues.keys.elementAt(numbOfFeature);
+    txt = "${txt}. $keyOfFeature";
+    Color c;
+    print(widget.predFeatureValues[keyOfFeature]);
+    if(widget.predFeatureValues[keyOfFeature] < 0.0){
+      c = Colors.redAccent;
+    } else{
+      c = Colors.lightGreenAccent;
+    }
+    print(c.value);
+    return Text(txt, style: TextStyle(color: c));
+  }
+
 
 }
